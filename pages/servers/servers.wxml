@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="add-server">
+    <button bindtap="showAddServer" type="primary">添加服务器</button>
+  </view>
+
+  <view class="server-list">
+    <view class="server-item" wx:for="{{servers}}" wx:key="id">
+      <view class="server-content" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="server-info">
+          <text class="server-name">{{item.name}}</text>
+          <text class="server-location">{{item.location}}</text>
+        </view>
+        <view class="traffic-info">
+          <text>总流量: {{item.totalTraffic}}GB</text>
+          <text>可用流量: {{item.availableTraffic}}GB</text>
+        </view>
+        <view class="server-status {{item.status ? 'online' : 'offline'}}">
+          {{item.status ? '在线' : '离线'}}
+        </view>
+      </view>
+      
+      <view class="server-actions">
+        <button size="mini" bindtap="editServer" data-id="{{item.id}}">编辑</button>
+        <button size="mini" type="warn" bindtap="deleteServer" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+</view> 

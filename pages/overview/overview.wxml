@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-number">{{totalServers}}</text>
+      <text class="stat-label">VPS总数</text>
+    </view>
+    <view class="stat-item error">
+      <text class="stat-number">{{errorServers}}</text>
+      <text class="stat-label">故障数量</text>
+    </view>
+  </view>
+  
+  <view class="server-status-list">
+    <view class="status-item" wx:for="{{serverStatusList}}" wx:key="id">
+      <view class="status-header">
+        <text class="server-name">{{item.name}}</text>
+        <text class="status-badge {{item.status ? 'online' : 'offline'}}">
+          {{item.status ? '在线' : '离线'}}
+        </text>
+      </view>
+      <view class="status-info">
+        <text>位置：{{item.location}}</text>
+        <text>IP：{{item.ip}}</text>
+      </view>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="status-header">
+    <text class="server-name">{{serverInfo.name}}</text>
+    <text class="status-badge {{serverInfo.status ? 'online' : 'offline'}}">
+      {{serverInfo.status ? '在线' : '离线'}}
+    </text>
+  </view>
+
+  <view class="info-section">
+    <view class="info-item">
+      <text class="label">地理位置</text>
+      <text class="value">{{serverInfo.location}}</text>
+    </view>
+    <view class="info-item">
+      <text class="label">IPv4地址</text>
+      <text class="value">{{serverInfo.ip}}</text>
+    </view>
+    <view class="info-item">
+      <text class="label">带宽</text>
+      <text class="value">{{serverInfo.bandwidth}} Mbps</text>
+    </view>
+  </view>
+
+  <view class="charts-section">
+    <view class="chart-container">
+      <pie-chart 
+        title="硬盘使用情况" 
+        used="{{serverInfo.diskUsed}}"
+        total="{{serverInfo.diskTotal}}"
+        unit="GB"
+      />
+    </view>
+    <view class="chart-container">
+      <pie-chart 
+        title="内存使用情况" 
+        used="{{serverInfo.memoryUsed}}"
+        total="{{serverInfo.memoryTotal}}"
+        unit="MB"
+      />
+    </view>
+    <view class="chart-container">
+      <pie-chart 
+        title="流量使用情况" 
+        used="{{serverInfo.trafficUsed}}"
+        total="{{serverInfo.trafficTotal}}"
+        unit="GB"
+      />
+    </view>
+  </view>
+
+  <view class="actions">
+    <button type="primary" bindtap="handleRestart">重启服务器</button>
+  </view>
+</view> 

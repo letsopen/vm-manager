@@ -1,0 +1,9 @@
+<view class="chart-wrapper">
+  <text class="chart-title">{{title}}</text>
+  <canvas type="2d" class="pie-chart" id="pieChart"></canvas>
+  <view class="chart-info">
+    <text>已用: {{used}}{{unit}}</text>
+    <text>总量: {{total}}{{unit}}</text>
+    <text>使用率: {{percentage}}%</text>
+  </view>
+</view> 
