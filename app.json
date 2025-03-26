@@ -2,6 +2,7 @@
   "pages": [
     "pages/overview/overview",
     "pages/servers/servers",
+    "pages/server-config/server-config",
     "pages/server-detail/server-detail"
   ],
   "window": {

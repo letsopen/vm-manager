@@ -57,15 +57,23 @@ Page({
     wx.showActionSheet({
       itemList: ['SolusVM', 'Bandwagonhost', 'Cloudcone'],
       success: (res) => {
-        const types = [API_TYPES.SOLUSVM, API_TYPES.BANDWAGONHOST, API_TYPES.CLOUDCONE];
-        this.showConfigForm(types[res.tapIndex]);
+        const types = ['solusvm', 'bandwagonhost', 'cloudcone'];
+        const selectedType = types[res.tapIndex];
+        
+        wx.navigateTo({
+          url: `/pages/server-config/server-config?type=${selectedType}`,
+          success: (res) => {
+            console.log('跳转成功');
+          },
+          fail: (err) => {
+            console.error('跳转失败：', err);
+            wx.showToast({
+              title: '页面跳转失败',
+              icon: 'none'
+            });
+          }
+        });
       }
-    });
-  },
-
-  showConfigForm(type) {
-    wx.navigateTo({
-      url: `/pages/server-config/server-config?type=${type}`
     });
   },
 

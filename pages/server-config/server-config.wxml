@@ -1,23 +1,40 @@
 <view class="container">
   <form bindsubmit="handleSubmit">
-    <view class="form-group">
+    <view class="form-item">
       <text class="label">服务器名称</text>
-      <input name="name" value="{{formData.name}}" placeholder="请输入服务器名称"/>
+      <input 
+        name="name" 
+        placeholder="请输入服务器名称"
+        class="input"
+      />
     </view>
 
-    <view class="form-group">
+    <view class="form-item">
       <text class="label">API地址</text>
-      <input name="apiUrl" value="{{formData.apiUrl}}" placeholder="请输入API地址"/>
+      <input 
+        name="apiUrl" 
+        placeholder="请输入API地址"
+        class="input"
+      />
     </view>
 
-    <view class="form-group">
-      <text class="label">API密钥</text>
-      <input name="apiKey" value="{{formData.apiKey}}" placeholder="请输入API密钥"/>
+    <view class="form-item">
+      <text class="label">API Key</text>
+      <input 
+        name="apiKey" 
+        placeholder="请输入API Key"
+        class="input"
+      />
     </view>
 
-    <view class="form-group">
-      <text class="label">API密码</text>
-      <input name="apiSecret" value="{{formData.apiSecret}}" type="password" placeholder="请输入API密码"/>
+    <view class="form-item">
+      <text class="label">API Secret</text>
+      <input 
+        name="apiSecret" 
+        type="password" 
+        placeholder="请输入API Secret"
+        class="input"
+      />
     </view>
 
     <view class="form-buttons">

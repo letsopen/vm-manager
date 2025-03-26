@@ -12,24 +12,11 @@ Page({
     }
   },
 
-  onLoad: async function(options) {
-    const { type, id } = options;
-    this.setData({ type, serverId: id });
-
-    if (id) {
-      const servers = await Storage.getServers();
-      const server = servers.find(s => s.id === id);
-      if (server) {
-        this.setData({
-          formData: {
-            name: server.name,
-            apiUrl: server.config.apiUrl,
-            apiKey: server.config.apiKey,
-            apiSecret: server.config.apiSecret
-          }
-        });
-      }
-    }
+  onLoad(options) {
+    console.log('配置页面参数：', options);
+    this.setData({
+      type: options.type
+    });
   },
 
   async handleSubmit(e) {
@@ -44,7 +31,7 @@ Page({
     }
 
     const serverData = {
-      id: this.data.serverId || Date.now().toString(),
+      id: Date.now().toString(),
       type: this.data.type,
       name,
       config: {
@@ -54,34 +41,22 @@ Page({
       }
     };
 
-    try {
-      const servers = await Storage.getServers();
-      let updatedServers;
-      
-      if (this.data.serverId) {
-        updatedServers = servers.map(s => 
-          s.id === this.data.serverId ? serverData : s
-        );
-      } else {
-        updatedServers = [...servers, serverData];
+    // 获取现有服务器列表
+    const servers = await Storage.getServers();
+    servers.push(serverData);
+
+    // 保存更新后的列表
+    await Storage.saveServers(servers);
+
+    wx.showToast({
+      title: '添加成功',
+      icon: 'success',
+      success: () => {
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 1500);
       }
-
-      await Storage.saveServers(updatedServers);
-      
-      wx.showToast({
-        title: '保存成功',
-        icon: 'success'
-      });
-
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1500);
-    } catch (e) {
-      wx.showToast({
-        title: '保存失败',
-        icon: 'none'
-      });
-    }
+    });
   },
 
   handleCancel() {
