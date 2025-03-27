@@ -3,6 +3,7 @@ import { VPSApi } from '../../utils/api';
 
 Page({
   data: {
+    loading: false,
     serverId: '',
     serverInfo: {}
   },
@@ -12,14 +13,28 @@ Page({
     this.loadServerDetail();
   },
 
-  async loadServerDetail() {
-    const servers = await Storage.getServers();
-    const server = servers.find(s => s.id === this.data.serverId);
-    if (!server) return;
+  onPullDownRefresh() {
+    this.loadServerDetail().then(() => {
+      wx.stopPullDownRefresh();
+    });
+  },
 
-    const api = new VPSApi(server.type, server.config);
+  async loadServerDetail() {
+    if (this.data.loading) return;
+    
+    this.setData({ loading: true });
+    wx.showLoading({ title: '加载中' });
+
     try {
+      const servers = await Storage.getServers();
+      const server = servers.find(s => s.id === this.data.serverId);
+      if (!server) {
+        throw new Error('服务器不存在');
+      }
+
+      const api = new VPSApi(server.type, server.config);
       const status = await api.getServerStatus();
+
       this.setData({
         serverInfo: {
           ...server,
@@ -31,6 +46,9 @@ Page({
         title: '获取服务器信息失败',
         icon: 'none'
       });
+    } finally {
+      this.setData({ loading: false });
+      wx.hideLoading();
     }
   },
 
