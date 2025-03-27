@@ -8,7 +8,7 @@
 
   <view class="info-section">
     <view class="info-item">
-      <text class="label">地理位置</text>
+      <text class="label">数据中心</text>
       <text class="value">{{serverInfo.location}}</text>
     </view>
     <view class="info-item">
@@ -16,36 +16,33 @@
       <text class="value">{{serverInfo.ip}}</text>
     </view>
     <view class="info-item">
-      <text class="label">带宽</text>
-      <text class="value">{{serverInfo.bandwidth}} Mbps</text>
+      <text class="label">流量重置时间</text>
+      <text class="value">{{serverInfo.resetTime}}</text>
     </view>
   </view>
 
-  <view class="charts-section">
-    <view class="chart-container">
-      <pie-chart 
-        title="硬盘使用情况" 
-        used="{{serverInfo.diskUsed}}"
-        total="{{serverInfo.diskTotal}}"
-        unit="GB"
-      />
+  <view class="traffic-section">
+    <view class="traffic-info">
+      <text class="label">总流量</text>
+      <text class="value">{{serverInfo.totalTraffic}} GB</text>
     </view>
-    <view class="chart-container">
-      <pie-chart 
-        title="内存使用情况" 
-        used="{{serverInfo.memoryUsed}}"
-        total="{{serverInfo.memoryTotal}}"
-        unit="MB"
-      />
+    <view class="traffic-info">
+      <text class="label">已用流量</text>
+      <text class="value">{{serverInfo.usedTraffic}} GB</text>
     </view>
-    <view class="chart-container">
-      <pie-chart 
-        title="流量使用情况" 
-        used="{{serverInfo.trafficUsed}}"
-        total="{{serverInfo.trafficTotal}}"
-        unit="GB"
-      />
+    <view class="traffic-info">
+      <text class="label">可用流量</text>
+      <text class="value">{{serverInfo.availableTraffic}} GB</text>
     </view>
+  </view>
+
+  <view class="chart-container">
+    <pie-chart 
+      title="流量使用情况" 
+      used="{{serverInfo.usedTraffic}}"
+      total="{{serverInfo.totalTraffic}}"
+      unit="GB"
+    />
   </view>
 
   <view class="actions">
